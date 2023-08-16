@@ -45,10 +45,13 @@ jobs:
           cp -r build/static/* label-studio/label_studio/frontend/dist/lsf
 
       - name: Push changes to Backend repository
+        env:
+          LABEL_STUDIO_BACKEND_REPO_TOKEN: ${{ secrets.LABEL_STUDIO_BACKEND_REPO_TOKEN }}
         run: |
           cd label-studio
           git config user.name "Manigandan P"
           git config user.email "sabarinathan305@gmail.com"
+          git remote set-url origin https://x-access-token:$LABEL_STUDIO_BACKEND_REPO_TOKEN@github.com/manigandanp/label-studio.git
           git add label_studio/frontend/dist/lsf
           git commit -m "Update compiled UI files"
           git push
