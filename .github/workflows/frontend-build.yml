@@ -29,24 +29,23 @@ jobs:
           name: compiled-ui
           path: build/static
 
-      # - name: Checkout Backend repository
-      #   uses: actions/checkout@v2
-      #   with:
-      #     repository: <backend-repo-owner>/<backend-repo-name>
-      #     path: backend
-      #     token: ${{ secrets.BACKEND_REPO_TOKEN }}
-      #     persist-credentials: false # Important for custom token
+      - name: Checkout to LabelStudio-Backend repository
+        uses: actions/checkout@v2
+        with:
+          repository: manigandanp/label-studio
+          path: backend
+          token: ${{ secrets.LABEL_STUDIO_BACKEND_REPO_TOKEN }} # Create a Personal Access Token and add it to this repository 
+          persist-credentials: false # Important for custom token
 
-      # - name: Move compiled files to Backend dist folder
-      #   run: |
-      #     mkdir -p backend/dist
-      #     cp -r build/* backend/dist/
+      - name: Move compiled files to Backend dist folder
+        run: |
+          cp -r build/* backend/label-studio/label_studio/frontend/dist/lsf
 
-      # - name: Push changes to Backend repository
-      #   run: |
-      #     cd backend
-      #     git config user.name "<Your Name>"
-      #     git config user.email "<Your Email>"
-      #     git add dist/
-      #     git commit -m "Update compiled UI files"
-      #     git push
+      - name: Push changes to Backend repository
+        run: |
+          cd backend
+          git config user.name "Manigandan P"
+          git config user.email "sabarinathan305@gmail.com"
+          git add label-studio/label_studio/frontend/dist/lsf
+          git commit -m "Update compiled UI files"
+          git push
