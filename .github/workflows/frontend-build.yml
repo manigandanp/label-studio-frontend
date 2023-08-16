@@ -40,6 +40,8 @@ jobs:
       - name: Move compiled files to Backend dist folder
         run: |
           ls -ll label-studio/label_studio/frontend/dist/lsf
+          rm -rf label-studio/label_studio/frontend/dist/lsf/js
+          rm -rf label-studio/label_studio/frontend/dist/lsf/css
           mv build/static/* label-studio/label_studio/frontend/dist/lsf
 
       - name: Push changes to Backend repository
