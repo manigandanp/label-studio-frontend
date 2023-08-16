@@ -21,7 +21,7 @@ jobs:
         run: yarn install
 
       - name: Build UI
-        run: yarn build:module
+        run: NODE_ENV=production npm run build:final
 
       - name: Upload compiled files as artifacts
         uses: actions/upload-artifact@v2
@@ -39,10 +39,8 @@ jobs:
 
       - name: Move compiled files to Backend dist folder
         run: |
-          ls -ll
-          ls -ll label-studio
-          ls -ll label-studio/label_studio/frontend/dist
-          cp -r build/static/* label-studio/label_studio/frontend/dist/lsf
+          ls -ll label-studio/label_studio/frontend/dist/lsf
+          mv build/static/* label-studio/label_studio/frontend/dist/lsf
 
       - name: Push changes to Backend repository
         env:
