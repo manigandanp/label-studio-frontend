@@ -49,6 +49,6 @@ jobs:
           cd label-studio
           git config user.name "Manigandan P"
           git config user.email "sabarinathan305@gmail.com"
-          git add label-studio/label_studio/frontend/dist/lsf
+          git add label_studio/frontend/dist/lsf
           git commit -m "Update compiled UI files"
           git push
