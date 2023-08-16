@@ -1,0 +1,51 @@
+name: Build UI and Uplaod artifact
+
+on:
+  push:
+    paths:
+      - 'src/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout UI repository
+        uses: actions/checkout@v2
+
+      - name: Install Yarn
+        run: npm install -g yarn
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build UI
+        run: NODE_ENV=production npm run build-bundle
+
+      - name: Upload compiled files as artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: compiled-ui
+          path: build/static
+
+      # - name: Checkout Backend repository
+      #   uses: actions/checkout@v2
+      #   with:
+      #     repository: <backend-repo-owner>/<backend-repo-name>
+      #     path: backend
+      #     token: ${{ secrets.BACKEND_REPO_TOKEN }}
+      #     persist-credentials: false # Important for custom token
+
+      # - name: Move compiled files to Backend dist folder
+      #   run: |
+      #     mkdir -p backend/dist
+      #     cp -r build/* backend/dist/
+
+      # - name: Push changes to Backend repository
+      #   run: |
+      #     cd backend
+      #     git config user.name "<Your Name>"
+      #     git config user.email "<Your Email>"
+      #     git add dist/
+      #     git commit -m "Update compiled UI files"
+      #     git push
