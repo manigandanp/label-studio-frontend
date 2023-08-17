@@ -21,7 +21,7 @@ jobs:
         run: yarn install
 
       - name: Build UI
-        run: NODE_ENV=production npm run build:final
+        run: NODE_ENV=production yarn build:module
 
       - name: Upload compiled files as artifacts
         uses: actions/upload-artifact@v2
