@@ -19,14 +19,18 @@ export const useRegionsCopyPaste = (entity: any) => {
       const nodeIsFocusable = isFocusable(focusNode as HTMLElement);
       const activeElementIsFocusable = isFocusable(document.activeElement);
       const selectionIsCollapsed = selection?.isCollapsed ?? true;
-
-      return selectionIsCollapsed && !nodeIsFocusable && !activeElementIsFocusable;
+      // console.log(entity.type)
+      // console.log(entity.serialized);
+      // console.log(entity.results);
+      // return selectionIsCollapsed && !nodeIsFocusable && !activeElementIsFocusable;
+      return true;
     };
 
     const copyToClipboard = (ev: ClipboardEvent) => {
       const { clipboardData } = ev;
-      const results = entity.serializedSelection;
+      // const results = entity.serializedSelection;
 
+      const results = entity.serialized;
       clipboardData?.setData('application/json', JSON.stringify(results));
       ev.preventDefault();
     };
