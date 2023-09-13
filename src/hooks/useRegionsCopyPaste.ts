@@ -19,11 +19,13 @@ export const useRegionsCopyPaste = (entity: any) => {
       const nodeIsFocusable = isFocusable(focusNode as HTMLElement);
       const activeElementIsFocusable = isFocusable(document.activeElement);
       const selectionIsCollapsed = selection?.isCollapsed ?? true;
-      // console.log(entity.type)
+      // console.log(entity.type);
       // console.log(entity.serialized);
       // console.log(entity.results);
-      // return selectionIsCollapsed && !nodeIsFocusable && !activeElementIsFocusable;
-      return true;
+      if (entity.type === 'annotation' && entity.serialized && entity.serialized.length)
+        // this if block is to copy bbox from one page to other without affecting other copy/paste functionalties
+        return true;
+      return selectionIsCollapsed && !nodeIsFocusable && !activeElementIsFocusable;
     };
 
     const copyToClipboard = (ev: ClipboardEvent) => {
