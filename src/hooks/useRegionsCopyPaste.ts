@@ -31,8 +31,15 @@ export const useRegionsCopyPaste = (entity: any) => {
     const copyToClipboard = (ev: ClipboardEvent) => {
       const { clipboardData } = ev;
       // const results = entity.serializedSelection;
+      var results;
 
-      const results = entity.serialized;
+      if (entity.type === 'annotation') {
+        const data = entity.serialized;
+        results = data.filter((item: any) => item.value.rectanglelabels[0] === 'table' || item.value.rectanglelabels[0] === 'table column' || item.value.rectanglelabels[0] === 'table column header');
+      } else {
+        results = entity.serialized;
+      }
+
       clipboardData?.setData('application/json', JSON.stringify(results));
       ev.preventDefault();
     };
